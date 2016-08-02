@@ -1,5 +1,7 @@
 package com.xlinyu.servlet;
 
+import com.xlinyu.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,14 @@ public class IndexServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("登录成功");
+        User user = (User)request.getSession().getAttribute("user");
+
+        System.out.println("..........");
+
+        if(null == user){
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            return ;
+        }
 
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 
